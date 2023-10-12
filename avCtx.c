@@ -53,8 +53,10 @@ avCtx_init (char *devname, char *vsize, char *vrate)
   const AVInputFormat *inFrmt = NULL;
   
   // inFrmt = av_find_input_format ("v4l2");
-  av_dict_set (&inOptions, "video_size", vsize, 0);
-  av_dict_set (&inOptions, "framerate", vrate, 0);
+  if(*vsize != 0)
+    av_dict_set (&inOptions, "video_size", vsize, 0);
+  if(*vrate != 0)
+    av_dict_set (&inOptions, "framerate", vrate, 0);
 
   if ((error = avformat_open_input (&avctx->formatCtx, devname, inFrmt, &inOptions)) < 0)
     DIE_AV (error);
