@@ -1,0 +1,17 @@
+* A simple Video player
+Using Libav, pthread and SDL I was able to implement a simple video/stream player,
+that uses a producer consumer arch, I have set the shed to OTHER because
+the RT shed need to run as root, or you need to give the compiled file the
+permission to run RT threads, this is done with
+#+begin_src sh
+  sudo setcap CAP_SYS_NICE+eip ./vb 
+#+end_src
+
+** Input format
+Any format supported by Libav can be opend, even live stream from device camera
+
+** Flags
+- h print the usage of the programm
+- d set the file or stream to read from
+- f set the video format (only for live video)
+- r set the framerate (only for live video)
