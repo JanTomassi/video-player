@@ -73,14 +73,16 @@ avCtx_init (char *devname, char *vsize, char *vrate)
       break;
     }
 
-  if ((avctx->decoder = avcodec_find_decoder(avctx->formatCtx->streams[avctx->selStream]->codecpar->codec_id)) == 0)
+  if ((avctx->decoder =
+       avcodec_find_decoder(avctx->formatCtx->streams[avctx->selStream]->codecpar->codec_id)) == 0)
     DIE("AV: Couldn't find a valid decoder for input");
 
   if ((avctx->decoderCtx = avcodec_alloc_context3(avctx->decoder)) == 0)
     DIE("AV: Couldn't allocate a context for the decoder");
 
-  if ((error = avcodec_parameters_to_context(avctx->decoderCtx,
-					     avctx->formatCtx->streams[avctx->selStream]->codecpar)) < 0)
+  if ((error =
+       avcodec_parameters_to_context(avctx->decoderCtx,
+				     avctx->formatCtx->streams[avctx->selStream]->codecpar)) < 0)
     DIE_AV(error);
 
   if ((error = avcodec_open2(avctx->decoderCtx, avctx->decoder, NULL)) < 0)
