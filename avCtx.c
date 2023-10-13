@@ -149,6 +149,11 @@ avCtx_free (avCtx **var)
   pthread_mutex_destroy(&ptr->pkt_mutex);
   pthread_mutex_destroy(&ptr->frame_mutex);
 
+  pthread_cond_destroy(&ptr->new_package);
+  pthread_cond_destroy(&ptr->decoder_send);
+  pthread_cond_destroy(&ptr->decoder_read);
+  pthread_cond_destroy(&ptr->frame_avail);
+
   free (ptr);
   var = NULL;
 }
